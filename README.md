@@ -8,52 +8,44 @@
 3. Melakukan visualisasi data.
 
 ## Deskripsi Masalah
-Welcome to **Oldenburg** ! Kota kecil cantik ini merupakan sebuah kota kecil di barat lau kota Bremen , Jerman , dengan penduduk kurang lebih 168 ribu jiwa [2018]. Kota kecil ini cocok menjadi lahan uji coba untuk melakukan pemodelan sederhana pembuatan rute pengantaran logistik.<br>
+Welcome to **Oldenburg** ! Kota kecil cantik ini merupakan sebuah kota kecil di barat laut kota Bremen , Jerman , dengan penduduk kurang lebih 168 ribu jiwa [2018]. Kota kecil ini cocok menjadi lahan uji coba untuk melakukan pemodelan sederhana pembuatan rute pengantaran logistik.<br>
 Setiap beberapa jam sekali, sebuah perusahaan logistik akan mengirimkan beberapa kurirnya untuk mengantar barang dari kantor pusat mereka ke beberapa titik tujuan yang tersebar di penjuru kota Oldenburg. Anda diminta untuk mencari rute untuk seluruh kurir sehingga jarak yang ditempuh oleh semua kurir paling kecil, sehingga perusahaan logistik dapat menghemat biaya bensin.
 
 ## Multiple-Agent TSP
 Masalah pengantaran barang untuk satu kendaraan dengan fungsi objektif jarak minimal dapat dimodelkan oleh Travelling Salesman Problem. Akan tetapi, perusahaan logistik biasanya memiliki lebih dari satu kendaraan yang berangkat bersamaan, sehingga TSP kurang cocok digunakan. Generalisasi TSP untuk beberapa agen adalah **multiple-agent TSP (mTSP)**, dan model masalah ini akan kita gunakan. Pada mTSP, akan terdapat *m* tur yang akan dibangun. Syarat dari semua tur mirip dengan TSP, yaitu bahwa seluruh tur akan kembali ke simpul awal (mewakili kantor pusat) dan setiap tujuan hanya akan dilewati oleh satu tur.
 
-## Tugas
-Kita akan menggunakan dataset jalanan pada kota Oldenburg yang dapat diakses pada <a href="https://www.cs.utah.edu/~lifeifei/SpatialDataset.htm">tautan ini.</a> Lakukan pengunduhan untuk kedua data jalanan di kota Oldenburg. Data pertama merupakan koordinat simpul, data kedua merupakan data sisi antar simpul. Asumsikan seluruh jalan dua arah.<br> 
-Seperti yang disebutkan sebelumnya, kita akan menggunakan pendekatan mTSP dalam permasalahan ini. Untuk mempermudah anda dan mempermudah penilaian, tugas akan dibagi dalam beberapa tahap.
-
-### Milestone 1
+## Milestone 1
 Pada milestone 1, anda diminta untuk membangun sebuah upagraf dari graf jalan keseluruhan kota Oldenburg. Upagraf tersebut merupakan sebuah graf lengkap tak berarah, dengan simpul-simpulnya adalah titik tujuan pengiriman barang ditambah titik yang mewakili kantor pusat perusahaan logistik. Hasilkan sebuah matriks jarak antar simpul upagraf lengkap. Nilai untuk milestone pertama maksimal adalah **600**.
 
-### Milestone 2
-Pada Milestone 2 , anda akan menggunakan upagraf yang telah dihasilkan pada Milestone 1 untuk membangun rute dari para kurir dengan pendekatan mTSP. Tampilkan rute yang diambil oleh tiap kurir. Nilai maksimal pada milestone kedua adalah **1500**
+## Pathfinding
+  Pathfinding merupakan teknik penelusuran graf pada graf berbobot yang digunakan untuk mencari rute dengan bobot terpendek dari satu simpul ke simpul lainnya. Dalam penyelesaian Logistic Routing Problem, pathfinding digunakan untuk menelusuri jalan sehingga diperoleh rute dengan jarak tempuh terpendek.
+  Setiap kota atau titik dalam suatu daerah direpresentasikan oleh simpul-simpul pada graf. Setiap jalan yang menghubungkan antar kota direpresentasikan oleh sisi(v,w) dengan v adalah simpul asal dan w adalah simpul tujuan. Setiap jalan tentu memiliki jaraknya masing-masing sehingga setiap sisi(v,w) memiliki bobot bernilai jarak tersebut.
+  Pendekatan pathfinding yang digunakan adalah algoritma A*. Algoritma A* adalah algoritma heuristik yang populer digunakan dalam menelusuri graf sehingga diperoleh rute terpendek. Algoritma A* memiliki formula umum sebagai berikut.
+  ```
+  f(n) = g(n) + h(n)
+  ```
+  Dalam kasus Logistic Routing Problem, setiap komponen tersebut memiliki makna sebagai berikut.
+  f(n) = cost total untuk mencapai simpul tujuan melalui simpul n
+  g(n) = jarak tempuh yang sudah ditempuh dari simpul asal ke simpul n
+  h(n) = nilai heuristik berdasarkan jarak garis lurus antara simpul n ke simpul tujuan
 
-### Milestone 3
-Setelah berhasil mendapatkan rute bagi para kurir, selanjutnya anda diminta untuk menggambarkan rute dari para kurir. Visualisasi rute  minimal membedakan warna rute untuk tiap kurir dan menampilkan upagraf yang digunakan untuk membuat rute. Nilai lebih akan diberikan jika anda dapat menampilkan rute beserta seluruh peta jalan di kota Oldenburg. Nilai minimal adalah **800** dan nilai maksimal adalah **1500**
+  Nilai heuristik h(n) dikatakan feasible apabila jarak garis lurus antara simpul n ke simpul tujuan tidak melebihi jarak perjalanan simpul n ke simpul tujuan yang sebenarnya.
 
-## Pengerjaan
-Tugas ini individual.<br>
-Lakukan *fork* terhadap *repository* ini.<br>
-Spek tugas cukup umum, sehingga asisten tidak membatasi algoritma maupun bahasa pemrograman yang digunakan, walaupun **penggunaan Python disarankan**. Algoritma yang digunakan untuk pathfinding harus optimal, namun hasil dari mTSP tidak harus optimal (*Note : beberapa pustaka optimization bisa menghasilkan solusi sub-optimal dalam batas waktu tertentu*). Bila merasa sudah menyelesaikan tugas, silahkan lakukan pull request dan hubungi asisten lewat email untuk melakukan demo.<br>
-Pastikan ada menambahkan/menggati README ini saat mengumpulkan. README minimal mengandung :
+  Keterangan:
+  x1 = posisi horizontal x dari titik asal pada koordinat kartesius
+  x2 = posisi horizontal x dari titik tujuan pada koordinat kartesius
+  y1 = posisi vertikal y dari titik asal pada koordinat kartesius
+  y2 = posisi vertikal y dari titik tujuan pada koordinat kartesius
+  
+  Nilai f(n) ini akan menjadi pertimbangan dalam memilih simpul-simpul selanjutnya dalam penelusuran graf. Dengan demikian, penelusuran graf bisa berjalan lebih cepat dalam mencapai simpul tujuan.
 
-1. Pendekatan algoritma yang digunakan untuk pathfinding dan penyelesaian mTSP, serta 
-2. Cara menjalankan program, termasuk instalasi pustaka bila menggunakan bermacam pustaka
-
-Anda bebas menggunakan pustaka maupun referensi apapun untuk mengerjakan tugas, kecuali kode/pustaka jadi yang melakukan *routing*, karena tujuan tugas adalah membuat sebuah prototipe pembuatan rute. Pastikan anda mencantumkan sumber bilamana anda menggunakan kode dari orang lain. Akan tetapi, pemahaman terhadap solusi masalah menjadi bagian penting dari penilaian , sehingga anda disarankan untuk menuliskan kode anda sendiri.<br>
-
-## Penilaian
-Nilai maksimal non-bonus adalah **4200**. Penilaian akan dilakukan berdasarkan : 
-1. kode sumber,
-2. pendekatan solusi, 
-2. demo aplikasi dan ,
-3. pemahaman terhadap solusi masalah.
-
-Untuk poin (1) dan poin (2) , nilai maksimal adalah **3600** dari ketiga milestone.<br> 
-Demo hanya dapat dilakukan sekali. Demo bernilai **600** poin. Pada demo, anda akan menunjukkan hasil aplikasi dan akan terdapat tanya jawab untuk menguji pemahaman.<br>
-Asisten juga akan menjalankan **plagiarism checking** antar kode sumber peserta. Bila ditemukan adanya kecurangan, maka nilai peserta bersangkutan adalah 0 tanpa pengubahan, dan pengurangan poin maksimal tidak akan berlaku. Perhatikan bahwa selama anda mencantumkan asal kode yang anda salin , tidak menggunakan pustaka untuk *routing* dan tidak menyalin kode milik teman anda, anda tidak akan mendapat masalah.
-
-## Bonus
-Bonus **300** poin diberikan jika anda dapat mengirimkan hasil algoritma beserta beberapa contoh masukan/keluaran untuk kasus kota San Francisco , dengan jumlah jalanan yang lebih besar dari Kota Oldenburg. Dataset dapat diambil di website yang sama.
-
-## Kontak
-Silahkan hubungi asisten lewat line @alamhasabiebaru atau lewat email 13517096@std.stei.itb.ac.id dengan subjek diawal tulisan \[SELEKSI IRK\] . *Note : waktu menjawab bervariasi, namun email biasanya akan dibalas kurang dari sehari. Line mungkin tidak dibalas dalam waktu satu-dua hari. Mohon bersabar :)*. Pertanyaan juga dipersilahkan.
+## Cara Menjalankan Program
+Untuk menjalankan aplikasi ini, dari root directory project ini dapat pindah ke folder src dengan command "cd src". Kemudian, jalankan file main.py dengan command :
+```
+cd src
+python graph.py
+```
+Masukkan untuk kota berupa "OL" atau "SF". OL untuk kota Oldenburg dan SF untuk San Fransisco.
 
 ## Referensi
 Silahkan gunakan referensi berikut sebagai awal pengerjaan tugas:<br>
