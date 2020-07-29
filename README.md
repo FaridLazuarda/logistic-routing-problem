@@ -32,9 +32,9 @@ f(n) = g(n) + h(n)
 ```
 
 Dalam kasus pencarian rute, setiap komponen tersebut memiliki makna sebagai berikut.<br>
-f(n) = cost total untuk mencapai simpul tujuan melalui simpul n <br>
-g(n) = jarak tempuh yang sudah ditempuh dari simpul asal ke simpul n <br>
-h(n) = nilai heuristik berdasarkan jarak euclidean antara simpul n ke simpul tujuan <br>
+- f(n) = cost total untuk mencapai simpul tujuan melalui simpul n <br>
+- g(n) = jarak tempuh yang sudah ditempuh dari simpul asal ke simpul n <br>
+- h(n) = nilai heuristik berdasarkan jarak euclidean antara simpul n ke simpul tujuan <br>
 
 Nilai dari fungsi heuristik ini akan digunakan untuk mencari jalan dengan bobot terkecil, sehingga algoritma akan berjalan lebih efektif
 
