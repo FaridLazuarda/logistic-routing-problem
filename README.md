@@ -20,21 +20,21 @@ Pada milestone 1, anda diminta untuk membangun sebuah upagraf dari graf jalan ke
 ## Pendekatan solusi
 Untuk milestone 1, saya menggunakan algoritma pathfinding A* untuk mencari rute terpendek. Algoritma ini merupakan teknik pencarian rute pada graf
 untuk mencari rute dengan bobot terpendek dari sebuah node ke node tujuan. Pada kasus kali ini, algoritma pencarian rute digunakan untuk menelusuri
-edge/jalan sehingga diperoleh rute dengan jarak terpendek.
+edge/jalan sehingga diperoleh rute dengan jarak terpendek.<br>
 
-Setiap kota atau titik dalam suatu daerah direpresentasikan oleh simpul pada graf. Setiap jalan yang menghubungkan antar kota direpresentasikan oleh edge(v,e) dengan v adalah simpul asal dan e adalah simpul tujuan. Nilai dari edge(v,e) merupakan jarak tempuh simpul v menuju simpul e.
+Setiap kota atau titik dalam suatu daerah direpresentasikan oleh simpul pada graf. Setiap jalan yang menghubungkan antar kota direpresentasikan oleh edge(v,e) dengan v adalah simpul asal dan e adalah simpul tujuan. Nilai dari edge(v,e) merupakan jarak tempuh simpul v menuju simpul e.<br>
 
 Pada persoalan kali ini saya menggunakan metode A* untuk melakukan pathfinding karena dinilai paling efektif. Rumus nilai heuristik untuk algoritma
-A* adalah :
+A* adalah :<br>
 
 ```
 f(n) = g(n) + h(n)
 ```
 
-Dalam kasus pencarian rute, setiap komponen tersebut memiliki makna sebagai berikut.
-f(n) = cost total untuk mencapai simpul tujuan melalui simpul n
-g(n) = jarak tempuh yang sudah ditempuh dari simpul asal ke simpul n
-h(n) = nilai heuristik berdasarkan jarak euclidean antara simpul n ke simpul tujuan
+Dalam kasus pencarian rute, setiap komponen tersebut memiliki makna sebagai berikut.<br>
+f(n) = cost total untuk mencapai simpul tujuan melalui simpul n <br>
+g(n) = jarak tempuh yang sudah ditempuh dari simpul asal ke simpul n <br>
+h(n) = nilai heuristik berdasarkan jarak euclidean antara simpul n ke simpul tujuan <br>
 
 Nilai dari fungsi heuristik ini akan digunakan untuk mencari jalan dengan bobot terkecil, sehingga algoritma akan berjalan lebih efektif
 
