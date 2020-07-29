@@ -37,13 +37,16 @@ def read_edges(file):
 
     return street
 
+# Untuk menghubungkan edge antar node
 def connect(street,edge):
     street[int(edge[2])].append((int(edge[1]), float(edge[3])))
     street[int(edge[1])].append((int(edge[2]), float(edge[3])))
 
+# Fungsi heuristik menggunakan numpy (Euclidean Distance)
 def heuristic(init,finish):
     return(np.linalg.norm(finish-init))
 
+# Tetangga dari sebuah node
 def neighbors(node,edge_data):
     # print(node)
     list_neighbor = edge_data[node]
@@ -54,6 +57,7 @@ def neighbors(node,edge_data):
         
     return neighbors
 
+# Menyimpan path yang ditempuh untuk mencapai sebuah node
 def reconstruct_path(node, start):
     path = []
     path.append(node)
@@ -62,6 +66,7 @@ def reconstruct_path(node, start):
         path.append(node)
     return path
 
+# Algoritma A* untuk mencari shortest path antar node
 def a_star(start,finish,node_data,edge_data):
     frontier = Q.PriorityQueue()
     frontier.put(start, 0)
@@ -84,6 +89,7 @@ def a_star(start,finish,node_data,edge_data):
 
     return total_cost[current]
 
+# Membentuk matriks subgraph dari list node dan edge yang telah dibuat
 def subgraph_matrix(node_data, edge_data, unvalued_node) :
     index = {}
     for i in range(len(unvalued_node)) :
@@ -95,11 +101,13 @@ def subgraph_matrix(node_data, edge_data, unvalued_node) :
             if i > j : 
                 subgraph[i][j] = subgraph[j][i]
                 # print(i,j,subgraph[i][j])
-            elif i <j :
+            elif i < j :
                 subgraph[i][j] = a_star(unvalued_node[i], unvalued_node[j], node_data, edge_data)
     
     return index,subgraph
 
+
+# Main function
 city = input("Masukkan wilayah yang ingin dianalisis : ")
 if(city == "OL"):
     edge_data = read_edges("OLcedge")

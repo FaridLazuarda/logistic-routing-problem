@@ -17,32 +17,30 @@ Masalah pengantaran barang untuk satu kendaraan dengan fungsi objektif jarak min
 ## Milestone 1
 Pada milestone 1, anda diminta untuk membangun sebuah upagraf dari graf jalan keseluruhan kota Oldenburg. Upagraf tersebut merupakan sebuah graf lengkap tak berarah, dengan simpul-simpulnya adalah titik tujuan pengiriman barang ditambah titik yang mewakili kantor pusat perusahaan logistik. Hasilkan sebuah matriks jarak antar simpul upagraf lengkap. Nilai untuk milestone pertama maksimal adalah **600**.
 
-## Pathfinding
-  Pathfinding merupakan teknik penelusuran graf pada graf berbobot yang digunakan untuk mencari rute dengan bobot terpendek dari satu simpul ke simpul lainnya. Dalam penyelesaian Logistic Routing Problem, pathfinding digunakan untuk menelusuri jalan sehingga diperoleh rute dengan jarak tempuh terpendek.
-  Setiap kota atau titik dalam suatu daerah direpresentasikan oleh simpul-simpul pada graf. Setiap jalan yang menghubungkan antar kota direpresentasikan oleh sisi(v,w) dengan v adalah simpul asal dan w adalah simpul tujuan. Setiap jalan tentu memiliki jaraknya masing-masing sehingga setiap sisi(v,w) memiliki bobot bernilai jarak tersebut.
-  Pendekatan pathfinding yang digunakan adalah algoritma A*. Algoritma A* adalah algoritma heuristik yang populer digunakan dalam menelusuri graf sehingga diperoleh rute terpendek. Algoritma A* memiliki formula umum sebagai berikut.
-  ```
-  f(n) = g(n) + h(n)
-  ```
-  Dalam kasus Logistic Routing Problem, setiap komponen tersebut memiliki makna sebagai berikut.
-  f(n) = cost total untuk mencapai simpul tujuan melalui simpul n
-  g(n) = jarak tempuh yang sudah ditempuh dari simpul asal ke simpul n
-  h(n) = nilai heuristik berdasarkan jarak garis lurus antara simpul n ke simpul tujuan
+## Pendekatan solusi
+Untuk milestone 1, saya menggunakan algoritma pathfinding A* untuk mencari rute terpendek. Algoritma ini merupakan teknik pencarian rute pada graf
+untuk mencari rute dengan bobot terpendek dari sebuah node ke node tujuan. Pada kasus kali ini, algoritma pencarian rute digunakan untuk menelusuri
+edge/jalan sehingga diperoleh rute dengan jarak terpendek.
 
-  Nilai heuristik h(n) dikatakan feasible apabila jarak garis lurus antara simpul n ke simpul tujuan tidak melebihi jarak perjalanan simpul n ke simpul tujuan yang sebenarnya.
+Setiap kota atau titik dalam suatu daerah direpresentasikan oleh simpul pada graf. Setiap jalan yang menghubungkan antar kota direpresentasikan oleh edge(v,e) dengan v adalah simpul asal dan e adalah simpul tujuan. Nilai dari edge(v,e) merupakan jarak tempuh simpul v menuju simpul e.
 
-  Keterangan:
-  x1 = posisi horizontal x dari titik asal pada koordinat kartesius
-  x2 = posisi horizontal x dari titik tujuan pada koordinat kartesius
-  y1 = posisi vertikal y dari titik asal pada koordinat kartesius
-  y2 = posisi vertikal y dari titik tujuan pada koordinat kartesius
-  
-  Nilai f(n) ini akan menjadi pertimbangan dalam memilih simpul-simpul selanjutnya dalam penelusuran graf. Dengan demikian, penelusuran graf bisa berjalan lebih cepat dalam mencapai simpul tujuan.
+Pada persoalan kali ini saya menggunakan metode A* untuk melakukan pathfinding karena dinilai paling efektif. Rumus nilai heuristik untuk algoritma
+A* adalah :
+
+```
+f(n) = g(n) + h(n)
+```
+
+Dalam kasus pencarian rute, setiap komponen tersebut memiliki makna sebagai berikut.
+f(n) = cost total untuk mencapai simpul tujuan melalui simpul n
+g(n) = jarak tempuh yang sudah ditempuh dari simpul asal ke simpul n
+h(n) = nilai heuristik berdasarkan jarak euclidean antara simpul n ke simpul tujuan
+
+Nilai dari fungsi heuristik ini akan digunakan untuk mencari jalan dengan bobot terkecil, sehingga algoritma akan berjalan lebih efektif
 
 ## Cara Menjalankan Program
-Untuk menjalankan aplikasi ini, dari root directory project ini dapat pindah ke folder src dengan command "cd src". Kemudian, jalankan file main.py dengan command :
+Pastikan sudah menjalankan program di folder src
 ```
-cd src
 python graph.py
 ```
 Masukkan untuk kota berupa "OL" atau "SF". OL untuk kota Oldenburg dan SF untuk San Fransisco.
